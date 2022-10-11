@@ -43,11 +43,14 @@ function firstRender() {
     themeBtnImg.src = "./assets/theme/sun.png"
   }
   
+  if(localStorage.getItem("filters")){
+    let localStorageFilters = localStorage.getItem("filters").split(",");
+    localStorageFilters = localStorageFilters.map(e => (parseInt(e)));
+    renderCards(filterList(localStorageFilters))
+  } else {
+    renderCards(products)
+  }
   
-  let localStorageFilters = localStorage.getItem("filters").split(",");
-  localStorageFilters = localStorageFilters.map(e => (parseInt(e)));
-  renderCards(filterList(localStorageFilters))
-
   renderCategoryFilters()
 
 }
@@ -113,9 +116,9 @@ function alternateTheme(){
     let themeImg = document.querySelector("#theme-img");
     (root.classList.contains('dark-mode')) ? themeImg.src = "./assets/theme/sun.png" : themeImg.src = "./assets/theme/moon.png"
 
-    darkMode = !darkMode
-    localStorage.setItem("dark-mode", darkMode)
-
+    // darkMode = !darkMode
+    // localStorage.setItem("dark-mode", darkMode)
+    root.classList.contains('dark-mode') ? localStorage.setItem("dark-mode", true) : localStorage.setItem("dark-mode", false)
   })
 
 }
